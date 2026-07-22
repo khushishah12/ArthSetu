@@ -1,30 +1,27 @@
-ARTHSETU AI — FULL-STACK INTELLIGENCE EDITION
-======================================
+ARTHSETU AI — NEON EDITION
+===========================
 
-TECH STACK
-- Next.js 16 App Router + React + TypeScript
-- Tailwind CSS + Framer Motion + GSAP + Lenis
-- Next.js Route Handlers + Zod
-- Supabase Auth + PostgreSQL + Row Level Security
-- FastAPI + scikit-learn + Joblib ML service
-- Vercel + Supabase + Render
+FIRST SETUP
+1. Copy .env.example to .env.local.
+2. Create a Neon project.
+3. Enable Neon Auth in that project.
+4. Add DATABASE_URL, NEON_AUTH_BASE_URL and a 32+ character
+   NEON_AUTH_COOKIE_SECRET to .env.local.
+5. Run database/NEON_SETUP.sql once in Neon SQL Editor.
+6. Run: npm install
+7. Start the ML service.
+8. Run: npm run dev
 
-FASTEST LOCAL DEMO
-1. Extract the ZIP completely.
-2. Install Node.js 20+ and Python 3.11/3.12.
-3. Double-click run-local.bat.
-4. Open http://localhost:3000.
-5. Click “Run live demo”.
+LOCAL URLS
+Website:   http://localhost:3000
+Dashboard: http://localhost:3000/app/dashboard
+ML docs:   http://127.0.0.1:8000/api/docs
 
-The application works without Supabase in labelled demo mode.
-The FastAPI service provides real model inference locally.
+DEMO MODE
+The dashboard can still run with synthetic browser-only history before Neon
+is configured.
 
-FULL CLOUD MODE
-1. Create a Supabase project.
-2. Run supabase/migrations/001_arthsetu.sql.
-3. Run supabase/seed.sql.
-4. Add Supabase keys to .env.local.
-5. Deploy ml-service to Render.
-6. Deploy the root Next.js application to Vercel.
-
-Read README.md and docs/DEPLOYMENT.md.
+DEPLOYMENT
+- Next.js: Vercel
+- PostgreSQL and Auth: Neon
+- FastAPI ML service: Render

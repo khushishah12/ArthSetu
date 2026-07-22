@@ -1,53 +1,49 @@
-# Deployment — Vercel + Supabase + Render
+# Deployment
 
-## 1. GitHub
+## 1. Neon
 
-Push the complete project root to one repository. Do not commit `.env.local`, `.venv`, `.next` or `node_modules`.
+1. Create the Neon project.
+2. Enable Neon Auth.
+3. Run `database/NEON_SETUP.sql`.
+4. Save:
+   - `DATABASE_URL`
+   - `NEON_AUTH_BASE_URL`
+   - `NEON_AUTH_COOKIE_SECRET`
 
-## 2. Supabase
+## 2. Render
 
-1. Create a Supabase project.
-2. Open SQL Editor.
-3. Run `supabase/migrations/001_arthsetu.sql`.
-4. Run `supabase/seed.sql`.
-5. Copy the Project URL and Publishable key.
-6. In Authentication URL Configuration, set the Vercel production URL and add `/auth/callback` as a redirect URL.
+Create a Blueprint from the repository's `render.yaml`.
 
-## 3. Render ML service
+After deployment save:
 
-Create a Blueprint from the repository or a Python Web Service:
+- `ML_SERVICE_URL`
+- `ML_SERVICE_API_KEY`
 
-- Root directory: `ml-service`
-- Build: `pip install -r requirements.txt`
-- Start: `python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-- Health: `/api/v1/health`
-- Python: `3.12.10`
+## 3. Vercel
 
-Set `ML_SERVICE_API_KEY` to a long random value and set `ALLOWED_ORIGINS` to the Vercel origin.
-
-## 4. Vercel
-
-Import the same repository with the project root as the Root Directory.
-
-Environment variables:
+Import the GitHub repository and add:
 
 ```env
-NEXT_PUBLIC_APP_MODE=production
-NEXT_PUBLIC_SUPABASE_URL=...
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=...
-ML_SERVICE_URL=https://your-render-service.onrender.com
-ML_SERVICE_API_KEY=the-same-secret-used-on-render
+DATABASE_URL=
+NEON_AUTH_BASE_URL=
+NEON_AUTH_COOKIE_SECRET=
+ML_SERVICE_URL=
+ML_SERVICE_API_KEY=
 ALLOW_DEMO_FALLBACK=true
-NEXT_PUBLIC_SITE_URL=https://your-project.vercel.app
+NEXT_PUBLIC_SITE_URL=https://YOUR_PROJECT.vercel.app
 ```
 
-Never expose `ML_SERVICE_API_KEY` with a `NEXT_PUBLIC_` prefix.
+After Vercel deploys, add the production Vercel origin to Neon Auth's allowed
+origins.
 
-## 5. Verification
+## 4. Verify
 
-- `/api/health` reports Supabase configured and ML connected.
-- Signup creates an Auth user and a `profiles` row.
-- Dashboard loads 15 synthetic profiles.
-- Complete assessment returns score, drivers, plan and scenario.
-- Authenticated assessment creates a row in `assessment_runs`.
-- History displays only rows owned by the current user.
+Open:
+
+- `/api/health`
+- `/signup`
+- `/app/assessment`
+- `/app/history`
+
+The health response should report Neon Auth configured, database connected and
+ML connected.

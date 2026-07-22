@@ -1,4 +1,109 @@
+import { desc, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-export async function GET(){const supabase=await createClient();if(!supabase)return NextResponse.json([]);const{data:{user}}=await supabase.auth.getUser();if(!user)return NextResponse.json([]);const{data,error}=await supabase.from("assessment_runs").select("id,profile_key,score,risk_bucket,confidence,plan,monthly_amount,years,result,created_at").eq("user_id",user.id).order("created_at",{ascending:false}).limit(30);if(error)return NextResponse.json({detail:error.message},{status:500});return NextResponse.json((data||[]).map(row=>({id:row.id,kind:"assessment",profile_id:row.profile_key,summary:{score:row.score,risk_bucket:row.risk_bucket,confidence:row.confidence,plan:row.plan,monthly_amount:row.monthly_amount,years:row.years},created_at:row.created_at})))}
-export async function DELETE(){const supabase=await createClient();if(!supabase)return NextResponse.json({status:"cleared-local-only"});const{data:{user}}=await supabase.auth.getUser();if(!user)return NextResponse.json({status:"not-authenticated"},{status:401});const{error}=await supabase.from("assessment_runs").delete().eq("user_id",user.id);if(error)return NextResponse.json({detail:error.message},{status:500});return NextResponse.json({status:"cleared"})}
+
+import { auth } from "@/lib/auth/server";
+import { getDb } from "@/lib/db";
+import { assessmentRuns } from "@/lib/db/schema";
+import { neonAuthConfigured } from "@/lib/env";
+
+export async function GET() {
+  if (!neonAuthConfigured()) {
+    return NextResponse.json([]);
+  }
+
+  try {
+    const { data: session } = await auth.getSession();
+    const userId = session?.user?.id;
+    const db = getDb();
+
+    if (!userId || !db) {
+      return NextResponse.json([]);
+    }
+
+    const rows = await db
+      .select({
+        id: assessmentRuns.id,
+        profileKey: assessmentRuns.profileKey,
+        score: assessmentRuns.score,
+        riskBucket: assessmentRuns.riskBucket,
+        confidence: assessmentRuns.confidence,
+        plan: assessmentRuns.plan,
+        monthlyAmount: assessmentRuns.monthlyAmount,
+        years: assessmentRuns.years,
+        createdAt: assessmentRuns.createdAt,
+      })
+      .from(assessmentRuns)
+      .where(eq(assessmentRuns.userId, userId))
+      .orderBy(desc(assessmentRuns.createdAt))
+      .limit(30);
+
+    return NextResponse.json(
+      rows.map((row) => ({
+        id: row.id,
+        kind: "assessment",
+        profile_id: row.profileKey,
+        summary: {
+          score: row.score,
+          risk_bucket: row.riskBucket,
+          confidence: row.confidence,
+          plan: row.plan,
+          monthly_amount: row.monthlyAmount,
+          years: row.years,
+        },
+        created_at: row.createdAt.toISOString(),
+      })),
+    );
+  } catch (caught) {
+    return NextResponse.json(
+      {
+        detail:
+          caught instanceof Error
+            ? caught.message
+            : "Unable to read Neon history.",
+      },
+      { status: 500 },
+    );
+  }
+}
+
+export async function DELETE() {
+  if (!neonAuthConfigured()) {
+    return NextResponse.json({ status: "cleared-local-only" });
+  }
+
+  try {
+    const { data: session } = await auth.getSession();
+    const userId = session?.user?.id;
+    const db = getDb();
+
+    if (!userId) {
+      return NextResponse.json(
+        { status: "not-authenticated" },
+        { status: 401 },
+      );
+    }
+
+    if (!db) {
+      return NextResponse.json(
+        { detail: "DATABASE_URL is not configured." },
+        { status: 503 },
+      );
+    }
+
+    await db
+      .delete(assessmentRuns)
+      .where(eq(assessmentRuns.userId, userId));
+
+    return NextResponse.json({ status: "cleared" });
+  } catch (caught) {
+    return NextResponse.json(
+      {
+        detail:
+          caught instanceof Error
+            ? caught.message
+            : "Unable to clear Neon history.",
+      },
+      { status: 500 },
+    );
+  }
+}
