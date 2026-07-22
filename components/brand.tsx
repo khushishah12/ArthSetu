@@ -1,0 +1,2 @@
+import Link from "next/link";
+export function Brand({compact=false}:{compact?:boolean}){return <Link href="/" className="brand"><span className="brand-mark" aria-hidden><svg viewBox="0 0 42 42"><path d="M7 28c6-13 22-14 28 0"/><path d="M9 28h24M14 28v6M28 28v6M21 10v18"/><circle cx="21" cy="9" r="3"/></svg></span>{!compact&&<span className="brand-copy"><strong>ArthSetu</strong><small>FINANCIAL INTELLIGENCE</small></span>}</Link>}

@@ -1,0 +1,3 @@
+import { z } from "zod";
+export const riskSchema=z.object({profile_id:z.string().optional(),loss_reaction:z.union([z.literal(1),z.literal(2),z.literal(3)]),horizon_years:z.number().int().min(1).max(5),emergency_fund_months:z.number().min(0).max(18),monthly_income:z.number().positive(),monthly_expenses:z.number().min(0),income_stability:z.number().int().min(1).max(5),liquidity_need_months:z.number().int().min(0).max(60),investment_experience:z.union([z.literal(0),z.literal(1),z.literal(2)]),persist:z.boolean().optional()});
+export const assessmentSchema=z.object({profile_id:z.string().min(1),monthly_amount:z.number().int().min(500).max(5000).multipleOf(100),years:z.number().int().min(1).max(5),risk_profile:riskSchema,persist:z.boolean().optional()});

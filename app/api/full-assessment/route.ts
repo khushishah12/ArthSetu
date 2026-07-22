@@ -1,0 +1,5 @@
+import { NextResponse } from "next/server";
+import { runAssessment } from "@/lib/ml-client";
+import { createClient } from "@/lib/supabase/server";
+import { assessmentSchema } from "@/lib/validators";
+export async function POST(request:Request){const parsed=assessmentSchema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({detail:parsed.error.flatten()},{status:422});const result=await runAssessment(parsed.data);let persisted=false;const supabase=await createClient();if(supabase){const{data:{user}}=await supabase.auth.getUser();if(user&&parsed.data.persist!==false){const{error}=await supabase.from("assessment_runs").insert({user_id:user.id,profile_key:parsed.data.profile_id,score:result.data.score.score,risk_bucket:result.data.score.risk_bucket,confidence:result.data.score.confidence,plan:result.data.recommendation.plan,monthly_amount:parsed.data.monthly_amount,years:parsed.data.years,result:result.data});persisted=!error}}return NextResponse.json({...result.data,_meta:{fallback:result.fallback,persisted}})}

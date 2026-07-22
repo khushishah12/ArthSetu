@@ -1,0 +1,3 @@
+"use client";
+import { motion } from "framer-motion";
+export function ScoreOrbit({score,risk,confidence,compact=false}:{score:number;risk:string;confidence:number;compact?:boolean}){const angle=Math.max(18,Math.min(342,(score-300)/600*342));return <div className={`score-orbit ${compact?"compact":""}`}><div className="score-orbit-ring" style={{"--score-angle":`${angle}deg`} as React.CSSProperties}/><div className="score-orbit-copy"><span>SETUSCORE</span><motion.strong key={score} initial={{opacity:0,scale:.92}} animate={{opacity:1,scale:1}}>{score}</motion.strong><small>{risk.toUpperCase()} RISK · {confidence}%</small></div><i className="score-pulse"/></div>}

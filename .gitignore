@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+.env
+.env.local
+.env.*.local
+!.env.example
+ml-service/.venv/
+ml-service/__pycache__/
+**/__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+.vercel/

@@ -1,0 +1,106 @@
+{
+  "recharge_regularity": {
+    "label": "Recharge regularity",
+    "group": "Recharge",
+    "direction": "higher",
+    "good": 0.88,
+    "step": 0.08,
+    "action": "Keep mobile recharges regular for the next three months."
+  },
+  "recharge_amount_volatility": {
+    "label": "Recharge amount stability",
+    "group": "Recharge",
+    "direction": "lower",
+    "good": 0.2,
+    "step": 0.08,
+    "action": "Use a more consistent recharge amount where practical."
+  },
+  "utility_on_time_ratio": {
+    "label": "Utility payment punctuality",
+    "group": "Utilities",
+    "direction": "higher",
+    "good": 0.92,
+    "step": 0.08,
+    "action": "Pay utility bills before the due date for three consecutive months."
+  },
+  "utility_avg_days_late": {
+    "label": "Average utility delay",
+    "group": "Utilities",
+    "direction": "lower",
+    "good": 1.5,
+    "step": 2.0,
+    "action": "Use reminders or autopay to reduce the average payment delay."
+  },
+  "commerce_frequency": {
+    "label": "Digital commerce activity",
+    "group": "Commerce",
+    "direction": "higher",
+    "good": 12.0,
+    "step": 2.0,
+    "action": "Maintain a stable pattern of legitimate digital transactions."
+  },
+  "commerce_refund_ratio": {
+    "label": "Refund ratio",
+    "group": "Commerce",
+    "direction": "lower",
+    "good": 0.05,
+    "step": 0.03,
+    "action": "Avoid unnecessary cancellations and maintain predictable commerce activity."
+  },
+  "transaction_stability": {
+    "label": "Transaction stability",
+    "group": "Transactions",
+    "direction": "higher",
+    "good": 0.82,
+    "step": 0.08,
+    "action": "Keep transaction activity steady instead of highly irregular."
+  },
+  "cashflow_volatility": {
+    "label": "Cash-flow volatility",
+    "group": "Transactions",
+    "direction": "lower",
+    "good": 0.25,
+    "step": 0.08,
+    "action": "Reserve recurring expenses early to reduce month-to-month cash-flow swings."
+  },
+  "savings_rate": {
+    "label": "Savings rate",
+    "group": "Savings",
+    "direction": "higher",
+    "good": 0.18,
+    "step": 0.04,
+    "action": "Maintain a small automatic monthly savings transfer."
+  },
+  "savings_streak_months": {
+    "label": "Savings continuity",
+    "group": "Savings",
+    "direction": "higher",
+    "good": 12.0,
+    "step": 3.0,
+    "action": "Continue the savings habit for at least three more months."
+  },
+  "digital_tenure_months": {
+    "label": "Digital history length",
+    "group": "Stability",
+    "direction": "higher",
+    "good": 30.0,
+    "step": 3.0,
+    "action": "Continue using the same verified financial channels consistently."
+  },
+  "failed_payment_ratio": {
+    "label": "Failed payment ratio",
+    "group": "Payments",
+    "direction": "lower",
+    "good": 0.03,
+    "step": 0.03,
+    "action": "Keep enough balance before scheduled payments to avoid failures."
+  },
+  "consent_completeness": {
+    "label": "Consent completeness",
+    "group": "Consent",
+    "direction": "higher",
+    "good": 0.95,
+    "step": 0.05,
+    "action": "Review and complete the eligible consented signal sources."
+  }
+}

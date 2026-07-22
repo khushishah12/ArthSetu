@@ -1,0 +1,32 @@
+{
+  "version": "simple-logistic-v1",
+  "model_type": "StandardScaler + LogisticRegression",
+  "features": [
+    "recharge_regularity",
+    "recharge_amount_volatility",
+    "utility_on_time_ratio",
+    "utility_avg_days_late",
+    "commerce_frequency",
+    "commerce_refund_ratio",
+    "transaction_stability",
+    "cashflow_volatility",
+    "savings_rate",
+    "savings_streak_months",
+    "digital_tenure_months",
+    "failed_payment_ratio",
+    "consent_completeness"
+  ],
+  "temperature": 2.2,
+  "score_formula": "round(300 + 600 * probability^1.35)",
+  "risk_thresholds": {
+    "Low": 700,
+    "Medium": 520
+  },
+  "metrics": {
+    "auc_roc": 0.8053,
+    "brier_score": 0.1933,
+    "training_rows": 6000,
+    "positive_rate": 0.52
+  },
+  "note": "Trained only on synthetic data for an educational hackathon prototype."
+}

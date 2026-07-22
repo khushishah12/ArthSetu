@@ -1,0 +1,30 @@
+ARTHSETU AI — FULL-STACK INTELLIGENCE EDITION
+======================================
+
+TECH STACK
+- Next.js 16 App Router + React + TypeScript
+- Tailwind CSS + Framer Motion + GSAP + Lenis
+- Next.js Route Handlers + Zod
+- Supabase Auth + PostgreSQL + Row Level Security
+- FastAPI + scikit-learn + Joblib ML service
+- Vercel + Supabase + Render
+
+FASTEST LOCAL DEMO
+1. Extract the ZIP completely.
+2. Install Node.js 20+ and Python 3.11/3.12.
+3. Double-click run-local.bat.
+4. Open http://localhost:3000.
+5. Click “Run live demo”.
+
+The application works without Supabase in labelled demo mode.
+The FastAPI service provides real model inference locally.
+
+FULL CLOUD MODE
+1. Create a Supabase project.
+2. Run supabase/migrations/001_arthsetu.sql.
+3. Run supabase/seed.sql.
+4. Add Supabase keys to .env.local.
+5. Deploy ml-service to Render.
+6. Deploy the root Next.js application to Vercel.
+
+Read README.md and docs/DEPLOYMENT.md.

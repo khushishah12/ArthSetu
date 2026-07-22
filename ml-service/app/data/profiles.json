@@ -1,0 +1,542 @@
+[
+  {
+    "profile_id": "ravi",
+    "name": "Ravi Patel",
+    "role": "Delivery partner",
+    "city": "Surat",
+    "monthly_income": 28000,
+    "monthly_expenses": 22500,
+    "monthly_surplus": 5500,
+    "emergency_fund_months": 1.5,
+    "income_stability": 3,
+    "features": {
+      "recharge_regularity": 0.91,
+      "recharge_amount_volatility": 0.18,
+      "utility_on_time_ratio": 0.94,
+      "utility_avg_days_late": 1.5,
+      "commerce_frequency": 13,
+      "commerce_refund_ratio": 0.05,
+      "transaction_stability": 0.84,
+      "cashflow_volatility": 0.34,
+      "savings_rate": 0.17,
+      "savings_streak_months": 12,
+      "digital_tenure_months": 31,
+      "failed_payment_ratio": 0.025,
+      "consent_completeness": 0.96
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "sunita",
+    "name": "Sunita Devi",
+    "role": "Home entrepreneur",
+    "city": "Jaipur",
+    "monthly_income": 36000,
+    "monthly_expenses": 27000,
+    "monthly_surplus": 9000,
+    "emergency_fund_months": 2.5,
+    "income_stability": 4,
+    "features": {
+      "recharge_regularity": 0.88,
+      "recharge_amount_volatility": 0.22,
+      "utility_on_time_ratio": 0.91,
+      "utility_avg_days_late": 2.1,
+      "commerce_frequency": 10,
+      "commerce_refund_ratio": 0.06,
+      "transaction_stability": 0.81,
+      "cashflow_volatility": 0.25,
+      "savings_rate": 0.2,
+      "savings_streak_months": 15,
+      "digital_tenure_months": 38,
+      "failed_payment_ratio": 0.03,
+      "consent_completeness": 0.94
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "amit",
+    "name": "Amit Kumar",
+    "role": "Salaried employee",
+    "city": "Indore",
+    "monthly_income": 52000,
+    "monthly_expenses": 36000,
+    "monthly_surplus": 16000,
+    "emergency_fund_months": 4.0,
+    "income_stability": 5,
+    "features": {
+      "recharge_regularity": 0.93,
+      "recharge_amount_volatility": 0.15,
+      "utility_on_time_ratio": 0.97,
+      "utility_avg_days_late": 0.7,
+      "commerce_frequency": 16,
+      "commerce_refund_ratio": 0.04,
+      "transaction_stability": 0.91,
+      "cashflow_volatility": 0.16,
+      "savings_rate": 0.25,
+      "savings_streak_months": 20,
+      "digital_tenure_months": 52,
+      "failed_payment_ratio": 0.01,
+      "consent_completeness": 0.98
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "neha",
+    "name": "Neha Joshi",
+    "role": "Home baker",
+    "city": "Vadodara",
+    "monthly_income": 33000,
+    "monthly_expenses": 26000,
+    "monthly_surplus": 7000,
+    "emergency_fund_months": 2.0,
+    "income_stability": 3,
+    "features": {
+      "recharge_regularity": 0.84,
+      "recharge_amount_volatility": 0.26,
+      "utility_on_time_ratio": 0.88,
+      "utility_avg_days_late": 2.8,
+      "commerce_frequency": 12,
+      "commerce_refund_ratio": 0.08,
+      "transaction_stability": 0.76,
+      "cashflow_volatility": 0.33,
+      "savings_rate": 0.16,
+      "savings_streak_months": 10,
+      "digital_tenure_months": 29,
+      "failed_payment_ratio": 0.04,
+      "consent_completeness": 0.92
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "arjun",
+    "name": "Arjun Parmar",
+    "role": "Service technician",
+    "city": "Rajkot",
+    "monthly_income": 31000,
+    "monthly_expenses": 24500,
+    "monthly_surplus": 6500,
+    "emergency_fund_months": 1.8,
+    "income_stability": 4,
+    "features": {
+      "recharge_regularity": 0.86,
+      "recharge_amount_volatility": 0.23,
+      "utility_on_time_ratio": 0.89,
+      "utility_avg_days_late": 2.4,
+      "commerce_frequency": 9,
+      "commerce_refund_ratio": 0.07,
+      "transaction_stability": 0.78,
+      "cashflow_volatility": 0.3,
+      "savings_rate": 0.15,
+      "savings_streak_months": 9,
+      "digital_tenure_months": 27,
+      "failed_payment_ratio": 0.04,
+      "consent_completeness": 0.9
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "meera",
+    "name": "Meera Shah",
+    "role": "Freelance designer",
+    "city": "Ahmedabad",
+    "monthly_income": 42000,
+    "monthly_expenses": 33500,
+    "monthly_surplus": 8500,
+    "emergency_fund_months": 2.0,
+    "income_stability": 3,
+    "features": {
+      "recharge_regularity": 0.82,
+      "recharge_amount_volatility": 0.29,
+      "utility_on_time_ratio": 0.83,
+      "utility_avg_days_late": 4.0,
+      "commerce_frequency": 15,
+      "commerce_refund_ratio": 0.09,
+      "transaction_stability": 0.71,
+      "cashflow_volatility": 0.43,
+      "savings_rate": 0.15,
+      "savings_streak_months": 8,
+      "digital_tenure_months": 34,
+      "failed_payment_ratio": 0.06,
+      "consent_completeness": 0.91
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "kunal",
+    "name": "Kunal Verma",
+    "role": "Gig worker",
+    "city": "Bhopal",
+    "monthly_income": 30000,
+    "monthly_expenses": 25500,
+    "monthly_surplus": 4500,
+    "emergency_fund_months": 1.0,
+    "income_stability": 2,
+    "features": {
+      "recharge_regularity": 0.76,
+      "recharge_amount_volatility": 0.34,
+      "utility_on_time_ratio": 0.79,
+      "utility_avg_days_late": 5.5,
+      "commerce_frequency": 11,
+      "commerce_refund_ratio": 0.1,
+      "transaction_stability": 0.66,
+      "cashflow_volatility": 0.49,
+      "savings_rate": 0.11,
+      "savings_streak_months": 6,
+      "digital_tenure_months": 22,
+      "failed_payment_ratio": 0.08,
+      "consent_completeness": 0.86
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "fatima",
+    "name": "Fatima Khan",
+    "role": "Private tutor",
+    "city": "Lucknow",
+    "monthly_income": 29000,
+    "monthly_expenses": 23500,
+    "monthly_surplus": 5500,
+    "emergency_fund_months": 1.7,
+    "income_stability": 3,
+    "features": {
+      "recharge_regularity": 0.8,
+      "recharge_amount_volatility": 0.3,
+      "utility_on_time_ratio": 0.82,
+      "utility_avg_days_late": 4.2,
+      "commerce_frequency": 8,
+      "commerce_refund_ratio": 0.08,
+      "transaction_stability": 0.69,
+      "cashflow_volatility": 0.41,
+      "savings_rate": 0.13,
+      "savings_streak_months": 7,
+      "digital_tenure_months": 25,
+      "failed_payment_ratio": 0.07,
+      "consent_completeness": 0.88
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "pooja",
+    "name": "Pooja Yadav",
+    "role": "Beauty professional",
+    "city": "Nagpur",
+    "monthly_income": 27000,
+    "monthly_expenses": 23000,
+    "monthly_surplus": 4000,
+    "emergency_fund_months": 1.0,
+    "income_stability": 2,
+    "features": {
+      "recharge_regularity": 0.73,
+      "recharge_amount_volatility": 0.38,
+      "utility_on_time_ratio": 0.75,
+      "utility_avg_days_late": 6.5,
+      "commerce_frequency": 10,
+      "commerce_refund_ratio": 0.12,
+      "transaction_stability": 0.61,
+      "cashflow_volatility": 0.54,
+      "savings_rate": 0.09,
+      "savings_streak_months": 5,
+      "digital_tenure_months": 18,
+      "failed_payment_ratio": 0.1,
+      "consent_completeness": 0.83
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "deepak",
+    "name": "Deepak Chauhan",
+    "role": "Driver",
+    "city": "Kanpur",
+    "monthly_income": 26000,
+    "monthly_expenses": 23000,
+    "monthly_surplus": 3000,
+    "emergency_fund_months": 0.8,
+    "income_stability": 2,
+    "features": {
+      "recharge_regularity": 0.69,
+      "recharge_amount_volatility": 0.41,
+      "utility_on_time_ratio": 0.7,
+      "utility_avg_days_late": 8.0,
+      "commerce_frequency": 7,
+      "commerce_refund_ratio": 0.13,
+      "transaction_stability": 0.56,
+      "cashflow_volatility": 0.6,
+      "savings_rate": 0.07,
+      "savings_streak_months": 4,
+      "digital_tenure_months": 17,
+      "failed_payment_ratio": 0.13,
+      "consent_completeness": 0.8
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "imran",
+    "name": "Imran Sheikh",
+    "role": "Small merchant",
+    "city": "Surat",
+    "monthly_income": 39000,
+    "monthly_expenses": 35500,
+    "monthly_surplus": 3500,
+    "emergency_fund_months": 0.7,
+    "income_stability": 2,
+    "features": {
+      "recharge_regularity": 0.66,
+      "recharge_amount_volatility": 0.45,
+      "utility_on_time_ratio": 0.64,
+      "utility_avg_days_late": 10.0,
+      "commerce_frequency": 18,
+      "commerce_refund_ratio": 0.15,
+      "transaction_stability": 0.53,
+      "cashflow_volatility": 0.63,
+      "savings_rate": 0.06,
+      "savings_streak_months": 3,
+      "digital_tenure_months": 20,
+      "failed_payment_ratio": 0.17,
+      "consent_completeness": 0.82
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "ramesh",
+    "name": "Ramesh Solanki",
+    "role": "Seasonal worker",
+    "city": "Udaipur",
+    "monthly_income": 22000,
+    "monthly_expenses": 20500,
+    "monthly_surplus": 1500,
+    "emergency_fund_months": 0.4,
+    "income_stability": 1,
+    "features": {
+      "recharge_regularity": 0.59,
+      "recharge_amount_volatility": 0.5,
+      "utility_on_time_ratio": 0.58,
+      "utility_avg_days_late": 12.0,
+      "commerce_frequency": 5,
+      "commerce_refund_ratio": 0.17,
+      "transaction_stability": 0.45,
+      "cashflow_volatility": 0.72,
+      "savings_rate": 0.04,
+      "savings_streak_months": 2,
+      "digital_tenure_months": 13,
+      "failed_payment_ratio": 0.21,
+      "consent_completeness": 0.74
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "rina",
+    "name": "Rina Patel",
+    "role": "Tailoring business",
+    "city": "Anand",
+    "monthly_income": 24000,
+    "monthly_expenses": 22000,
+    "monthly_surplus": 2000,
+    "emergency_fund_months": 0.6,
+    "income_stability": 2,
+    "features": {
+      "recharge_regularity": 0.63,
+      "recharge_amount_volatility": 0.47,
+      "utility_on_time_ratio": 0.62,
+      "utility_avg_days_late": 10.5,
+      "commerce_frequency": 6,
+      "commerce_refund_ratio": 0.16,
+      "transaction_stability": 0.49,
+      "cashflow_volatility": 0.68,
+      "savings_rate": 0.05,
+      "savings_streak_months": 3,
+      "digital_tenure_months": 15,
+      "failed_payment_ratio": 0.18,
+      "consent_completeness": 0.78
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "manish",
+    "name": "Manish Kumar",
+    "role": "Daily-wage worker",
+    "city": "Patna",
+    "monthly_income": 20000,
+    "monthly_expenses": 19000,
+    "monthly_surplus": 1000,
+    "emergency_fund_months": 0.2,
+    "income_stability": 1,
+    "features": {
+      "recharge_regularity": 0.54,
+      "recharge_amount_volatility": 0.55,
+      "utility_on_time_ratio": 0.51,
+      "utility_avg_days_late": 15.0,
+      "commerce_frequency": 4,
+      "commerce_refund_ratio": 0.2,
+      "transaction_stability": 0.39,
+      "cashflow_volatility": 0.78,
+      "savings_rate": 0.025,
+      "savings_streak_months": 1,
+      "digital_tenure_months": 9,
+      "failed_payment_ratio": 0.27,
+      "consent_completeness": 0.68
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  },
+  {
+    "profile_id": "sonal",
+    "name": "Sonal Yadav",
+    "role": "Farm worker",
+    "city": "Nashik",
+    "monthly_income": 23000,
+    "monthly_expenses": 21500,
+    "monthly_surplus": 1500,
+    "emergency_fund_months": 0.3,
+    "income_stability": 1,
+    "features": {
+      "recharge_regularity": 0.57,
+      "recharge_amount_volatility": 0.52,
+      "utility_on_time_ratio": 0.55,
+      "utility_avg_days_late": 13.5,
+      "commerce_frequency": 5,
+      "commerce_refund_ratio": 0.18,
+      "transaction_stability": 0.42,
+      "cashflow_volatility": 0.74,
+      "savings_rate": 0.03,
+      "savings_streak_months": 2,
+      "digital_tenure_months": 11,
+      "failed_payment_ratio": 0.24,
+      "consent_completeness": 0.71
+    },
+    "consent": {
+      "status": "captured",
+      "captured_at": "2026-07-18T10:00:00Z",
+      "sources": [
+        "recharge",
+        "utility",
+        "commerce",
+        "savings"
+      ]
+    }
+  }
+]
