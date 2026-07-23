@@ -129,7 +129,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
 
       <Link
         className="demo-access"
-        href="/api/demo-session?next=/app/dashboard"
+        href="/api/demo-session?next=/questionnaire"
       >
         Explore without an account <ArrowRight size={14} />
       </Link>

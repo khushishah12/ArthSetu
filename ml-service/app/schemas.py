@@ -3,7 +3,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
 
-RiskBucket = Literal["Poor", "Fair", "Good"]
+RiskBucket = Literal["High", "Medium", "Low"]
 InvestmentPlan = Literal["Conservative", "Balanced", "Growth"]
 
 class SignalFeatures(BaseModel):

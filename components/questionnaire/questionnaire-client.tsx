@@ -4,10 +4,11 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowLeft, Check, Loader2, Trophy, AlertTriangle, TrendingUp, ShieldCheck, Wallet, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import type { QuestionnaireAnswers, ScoreResult } from "@/lib/types";
+import type { QuestionnaireAnswers, ScoreResult, Recommendation, Simulation } from "@/lib/types";
 import { questions, answersToFeatures, TOTAL_PHASES } from "@/lib/questionnaire-map";
 import type { QuestionDef } from "@/lib/questionnaire-map";
 import { ScoreOrbit } from "@/components/ui/score-orbit";
+import { saveAnswers, saveResult } from "@/lib/questionnaire-store";
 
 type Phase = { label: string; questions: QuestionDef[] };
 
@@ -110,9 +111,9 @@ function QuestionInput({ q, value, onChange }: { q: QuestionDef; value: number |
   }
 }
 
-function ResultPage({ result, answers }: { result: ScoreResult & { recommendation?: { plan: string; monthly_amount: number; years: number; allocation: { category: string; percentage: number; rationale: string }[]; plain_language_summary: string; guardrails: string[] }; simulation?: { series: { month: number; contributed: number; expected: number }[]; final_values: Record<string, number> } }; answers: QuestionnaireAnswers }) {
+function ResultPage({ result, answers, recommendation, simulation }: { result: ScoreResult; answers: QuestionnaireAnswers; recommendation?: Recommendation; simulation?: Simulation }) {
   const surplus = Math.max(0, answers.monthly_income - answers.monthly_expenses);
-  const investAmount = result.recommendation?.monthly_amount ?? Math.min(5000, Math.max(500, Math.round(surplus * 0.3 / 100) * 100));
+  const investAmount = recommendation?.monthly_amount ?? Math.min(5000, Math.max(500, Math.round(surplus * 0.3 / 100) * 100));
 
   return (
     <motion.div className="result-page" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -161,34 +162,34 @@ function ResultPage({ result, answers }: { result: ScoreResult & { recommendatio
         </div>
       )}
 
-      {result.recommendation && (
+      {recommendation && (
         <div className="result-section">
-          <h3><Wallet size={16} /> Investment Plan: {result.recommendation.plan}</h3>
-          <p className="result-summary">{result.recommendation.plain_language_summary}</p>
+          <h3><Wallet size={16} /> Investment Plan: {recommendation.plan}</h3>
+          <p className="result-summary">{recommendation.plain_language_summary}</p>
           <div className="allocation-row">
-            {result.recommendation.allocation.map(a => (
+            {recommendation.allocation.map(a => (
               <div key={a.category} className="alloc-chip">
                 <span className="alloc-pct">{a.percentage}%</span>
                 <span className="alloc-label">{a.category}</span>
               </div>
             ))}
           </div>
-          {result.recommendation.guardrails.length > 0 && (
+          {recommendation.guardrails.length > 0 && (
             <div className="guardrails">
               <ShieldCheck size={14} />
-              {result.recommendation.guardrails.map((g, i) => <p key={i}>{g}</p>)}
+              {recommendation.guardrails.map((g, i) => <p key={i}>{g}</p>)}
             </div>
           )}
         </div>
       )}
 
-      {result.simulation && (
+      {simulation && (
         <div className="result-section">
           <h3>Projected Growth (₹{investAmount.toLocaleString("en-IN")}/mo)</h3>
           <div className="sim-chart">
-            {result.simulation.series.filter(p => p.month % 3 === 0 || p.month === 1).map(p => (
+            {simulation.series.filter(p => p.month % 3 === 0 || p.month === 1).map(p => (
               <div key={p.month} className="sim-bar-group">
-                <div className="sim-bar" style={{ height: `${(p.expected / (result.simulation!.final_values.expected || 1)) * 100}%` }}>
+                <div className="sim-bar" style={{ height: `${(p.expected / (simulation.final_values.expected || 1)) * 100}%` }}>
                   <span className="sim-val">₹{(p.expected / 1000).toFixed(0)}K</span>
                 </div>
                 <span className="sim-month">M{p.month}</span>
@@ -204,8 +205,8 @@ function ResultPage({ result, answers }: { result: ScoreResult & { recommendatio
       </div>
 
       <div className="result-actions">
-        <Link href="/" className="button-primary">Back to Home</Link>
-        <button onClick={() => window.location.reload()} className="button-ghost">Retake Questionnaire</button>
+        <Link href="/app/dashboard" className="button-primary">Go to Dashboard <ArrowRight size={14} /></Link>
+        <Link href="/" className="button-ghost">Back to Home</Link>
       </div>
     </motion.div>
   );
@@ -215,7 +216,9 @@ export function QuestionnaireClient() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<QuestionnaireAnswers>(defaultAnswers);
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<ScoreResult & { recommendation?: Record<string, unknown>; simulation?: Record<string, unknown> } | null>(null);
+  const [result, setResult] = useState<ScoreResult | null>(null);
+  const [rec, setRec] = useState<Recommendation | undefined>(undefined);
+  const [sim, setSim] = useState<Simulation | undefined>(undefined);
   const [error, setError] = useState<string | null>(null);
 
   const phases = useMemo(() => {
@@ -261,7 +264,17 @@ export function QuestionnaireClient() {
         throw new Error(body.detail || `Request failed (${resp.status})`);
       }
       const data = await resp.json();
+      saveAnswers(answers);
+      saveResult({
+        score: data.score,
+        features,
+        risk,
+        recommendation: data.recommendation,
+        simulation: data.simulation,
+      });
       setResult(data.score);
+      setRec(data.recommendation);
+      setSim(data.simulation);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong.");
     } finally {
@@ -270,7 +283,7 @@ export function QuestionnaireClient() {
   }
 
   if (result) {
-    return <ResultPage result={result as ScoreResult & { recommendation?: { plan: string; monthly_amount: number; years: number; allocation: { category: string; percentage: number; rationale: string }[]; plain_language_summary: string; guardrails: string[] }; simulation?: { series: { month: number; contributed: number; expected: number }[]; final_values: Record<string, number> } }} answers={answers} />;
+    return <ResultPage result={result} answers={answers} recommendation={rec} simulation={sim} />;
   }
 
   return (

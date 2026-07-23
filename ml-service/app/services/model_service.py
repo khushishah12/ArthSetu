@@ -30,10 +30,10 @@ def predict_category(features: dict) -> str:
 
 def score_to_risk(score: int) -> str:
     if score >= RISK_THRESHOLDS.get("Good", 650):
-        return "Good"
+        return "Low"
     if score >= RISK_THRESHOLDS.get("Fair", 550):
-        return "Fair"
-    return "Poor"
+        return "Medium"
+    return "High"
 
 def confidence_from_score(score: int) -> int:
     normalized = (score - 300) / 600

@@ -1,12 +1,253 @@
 "use client";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, Brain, Database, ShieldCheck, Sparkles, TrendingUp, Wallet } from "lucide-react";
+import { ArrowRight, CheckCircle2, TrendingUp, Trophy, Wallet, AlertTriangle, Sparkles } from "lucide-react";
 import { ScoreOrbit } from "@/components/ui/score-orbit";
 import { ProjectionChart } from "@/components/ui/projection-chart";
 import { Loading } from "@/components/ui/loading";
-import * as api from "@/lib/web-api";
-import type { DashboardBundle, ProfileSummary } from "@/lib/types";
-const money=(n:number)=>new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",maximumFractionDigits:0}).format(n);
-const signalLabels:Record<string,string>={recharge_regularity:"Recharge regularity",utility_on_time_ratio:"Utility punctuality",transaction_stability:"Transaction stability",savings_rate:"Savings rate"};
-export function DashboardClient(){const[profiles,setProfiles]=useState<ProfileSummary[]>([]);const[selected,setSelected]=useState("ravi");const[monthly,setMonthly]=useState(2000);const[years,setYears]=useState(3);const[bundle,setBundle]=useState<DashboardBundle|null>(null);const[loading,setLoading]=useState(true);const[mode,setMode]=useState("web");const[error,setError]=useState("");useEffect(()=>{api.profiles().then(r=>{setProfiles(r.data);setMode(r.mode);if(!r.data.some(p=>p.profile_id===selected)&&r.data[0])setSelected(r.data[0].profile_id)}).catch(e=>setError(e.message))},[]);const load=useCallback(()=>{setError("");api.dashboard(selected,monthly,years).then(r=>{setBundle(r.data);setMode(r.mode)}).catch(e=>setError(e.message)).finally(()=>setLoading(false))},[selected,monthly,years]);useEffect(()=>{const t=setTimeout(load,160);return()=>clearTimeout(t)},[load]);const active=useMemo(()=>profiles.find(p=>p.profile_id===selected)??bundle?.profile,[profiles,selected,bundle]);if(loading&&!bundle)return <Loading/>;if(!bundle)return <div className="fatal-card"><h1>Dashboard unavailable</h1><p>{error||"The financial-intelligence service did not respond."}</p></div>;const visible=Object.entries(bundle.features).filter(([key])=>key in signalLabels);return <main className="product-main"><section className="product-heading"><div><span>COMMAND CENTRE</span><h1>Financial intelligence, made reviewable.</h1><p>Follow every consented signal through score, reasoning, action and educational planning.</p></div><label className="profile-picker"><span>ACTIVE PROFILE</span><select value={selected} onChange={e=>setSelected(e.target.value)}>{profiles.map(p=><option value={p.profile_id} key={p.profile_id}>{p.name} · {p.role}</option>)}</select></label></section>{mode.includes("fallback")&&<div className="mode-banner"><Sparkles size={15}/><span>Demo fallback is active. Start the FastAPI service for live scikit-learn inference.</span></div>}<section className="command-hero"><div className="command-copy"><span>EXPLAINABLE CREDIT LIKELIHOOD</span><h2>{active?.name.split(" ")[0]}’s everyday behaviour now has a visible financial story.</h2><p>The score is supported by consent lineage, model confidence, top local drivers and practical improvement missions.</p><div><Link className="button-primary" href={`/app/assessment?profile=${selected}`}>Run complete assessment <ArrowRight size={14}/></Link><Link className="button-ghost" href="/app/profile">Review consent</Link></div></div><div className="command-visual"><div className="command-orbit one"/><div className="command-orbit two"/><ScoreOrbit score={bundle.score.score} risk={bundle.score.risk_bucket} confidence={bundle.score.confidence}/>{["Recharge","Utilities","Transactions","Savings"].map((x,i)=><div key={x} className={`command-signal s${i+1}`}>{x}<i/></div>)}</div></section><section className="kpi-grid"><article className="kpi-card highlight"><span>SETUSCORE</span><strong>{bundle.score.score}</strong><small>{bundle.score.risk_bucket} risk · {bundle.score.confidence}% confidence</small></article><article className="kpi-card"><Brain/><span>VISIBLE DRIVERS</span><strong>{bundle.score.top_drivers.length}</strong><small>Local model contributions</small></article><article className="kpi-card"><Wallet/><span>EDUCATIONAL PLAN</span><strong>{bundle.recommendation.plan}</strong><small>{money(bundle.recommendation.monthly_amount)} monthly</small></article><article className="kpi-card"><ShieldCheck/><span>CONSENT COVERAGE</span><strong>{bundle.profile.consent_sources.length}/4</strong><small>Source lineage recorded</small></article></section><section className="product-grid wide-left"><article className="product-card"><div className="card-heading"><div><span>SIGNAL ENGINE</span><h3>Alternative financial behaviour</h3><p>Normalised signals prepared for the model.</p></div><Database size={19}/></div><div className="signal-grid">{visible.map(([key,value],index)=><div className={`signal-card signal-${index+1}`} key={key}><div><span>{signalLabels[key]}</span><strong>{Math.round(value*100)}%</strong></div><div className="signal-track"><i style={{width:`${Math.min(100,value*100)}%`}}/></div><small><CheckCircle2 size={12}/> Consent captured · Feature mapped</small></div>)}</div></article><article className="product-card"><div className="card-heading"><div><span>EXPLAINABLE MODEL</span><h3>Why this score?</h3><p>The three strongest learned contributions.</p></div><b>TOP 3</b></div><div className="driver-list">{bundle.score.top_drivers.map(d=><div className={`driver-item ${d.direction}`} key={d.feature}><div><strong>{d.label}</strong><small>{d.explanation}</small></div><div className="driver-track"><i style={{width:`${Math.max(20,Math.min(100,Math.abs(d.impact_points)*5))}%`}}/></div><b>{d.impact_points>0?"+":""}{d.impact_points}</b></div>)}</div></article></section><section className="product-grid"><article className="product-card"><div className="card-heading"><div><span>IMPROVEMENT PATHWAY</span><h3>Actions the user can take</h3><p>Each mission changes one realistic feature.</p></div><TrendingUp size={19}/></div><div className="mission-list">{bundle.score.improvement_actions.map((a,i)=><article key={a.feature}><span>0{i+1}</span><div><strong>{a.label}</strong><p>{a.action}</p><small>Potential prototype gain: +{a.score_gain} points</small></div><b>{a.projected_score}</b></article>)}</div></article><article className="product-card"><div className="card-heading"><div><span>SETUINVEST</span><h3>{bundle.recommendation.plan} education</h3><p>Broad categories—not product recommendations.</p></div><Link className="button-ghost" href="/app/invest">Open planner</Link></div><div className="allocation-view"><div className="allocation-ring" style={{"--a":`${bundle.recommendation.allocation[0]?.percentage||40}%`,"--b":`${(bundle.recommendation.allocation[0]?.percentage||40)+(bundle.recommendation.allocation[1]?.percentage||40)}%`} as React.CSSProperties}><div><strong>{money(monthly)}</strong><span>monthly</span></div></div><div className="allocation-list">{bundle.recommendation.allocation.map((a,i)=><div key={a.category}><i className={`c${i+1}`}/><span><strong>{a.category}</strong><small>{a.rationale}</small></span><b>{a.percentage}%</b></div>)}</div></div></article></section><section className="product-card projection-card"><div className="card-heading responsive"><div><span>SCENARIO INTELLIGENCE</span><h3>See the range—not a promise.</h3><p>Three transparent annual-rate paths illustrate uncertainty.</p></div><div className="range-controls"><label><span>MONTHLY</span><strong>{money(monthly)}</strong><input type="range" min="500" max="5000" step="100" value={monthly} onChange={e=>setMonthly(Number(e.target.value))}/></label><label><span>HORIZON</span><strong>{years} year{years>1?"s":""}</strong><input type="range" min="1" max="5" value={years} onChange={e=>setYears(Number(e.target.value))}/></label></div></div><ProjectionChart series={bundle.simulation.series}/></section><div className="persistent-disclaimer"><strong>Educational purposes only.</strong> SetuScore is not an official bureau score, and scenarios are not regulated financial advice or promised returns.</div></main>}
+import { hasQuestionnaireData, loadAnswers, loadResult, loadRecommendation, loadSimulation, getUserProfile } from "@/lib/questionnaire-store";
+import type { ScoreResult, Recommendation, Simulation, QuestionnaireAnswers } from "@/lib/types";
+const money = (n: number) => new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(n);
+
+const signalLabels: Record<string, string> = {
+  payment_consistency: "Payment consistency", savings_ratio: "Savings ratio",
+  expense_ratio: "Expense ratio", late_bill_count: "Late bill count",
+  recharge_frequency: "Recharge frequency", upi_transactions: "UPI transactions",
+  wallet_transactions: "Wallet transactions", ecommerce_orders: "E-commerce orders",
+  digital_activity_score: "Digital activity score", financial_discipline: "Financial discipline",
+  monthly_income: "Monthly income", age: "Age", average_recharge_amount: "Recharge amount",
+};
+
+function NoDataState() {
+  return (
+    <main className="product-main">
+      <section className="product-heading"><div><span>COMMAND CENTRE</span><h1>Complete the questionnaire first.</h1><p>Answer 20 quick questions to get your personalised SetuScore, improvement missions and investment plan.</p></div></section>
+      <div className="fatal-card">
+        <h1>No assessment data found</h1>
+        <p>Take the 2-minute financial questionnaire to generate your SetuScore.</p>
+        <Link href="/questionnaire" className="button-primary" style={{ marginTop: 16 }}>
+          Start Questionnaire <ArrowRight size={14} />
+        </Link>
+      </div>
+    </main>
+  );
+}
+
+export function DashboardClient() {
+  const [hasData, setHasData] = useState<boolean | null>(null);
+  const [monthly, setMonthly] = useState(2000);
+  const [answers, setAnswers] = useState<QuestionnaireAnswers | null>(null);
+  const [score, setScore] = useState<ScoreResult | null>(null);
+  const [recommendation, setRecommendation] = useState<Recommendation | null>(null);
+  const [simulation, setSimulation] = useState<Simulation | null>(null);
+
+  useEffect(() => {
+    const exists = hasQuestionnaireData();
+    setHasData(exists);
+    if (exists) {
+      const a = loadAnswers();
+      const r = loadResult();
+      const rec = loadRecommendation();
+      const sim = loadSimulation();
+      if (a) setAnswers(a);
+      if (r) setScore(r.score);
+      if (rec) { setRecommendation(rec); setMonthly(rec.monthly_amount); }
+      if (sim) setSimulation(sim);
+    }
+  }, []);
+
+  if (hasData === null) return <Loading />;
+  if (!hasData || !score || !answers) return <NoDataState />;
+
+  const profile = getUserProfile(answers);
+  const features = score.top_drivers.length > 0
+    ? Object.fromEntries(score.top_drivers.map(d => [d.feature, d.value]))
+    : {};
+  const visibleFeatures = Object.entries(features).filter(([k]) => k in signalLabels);
+
+  return (
+    <main className="product-main">
+      <section className="product-heading">
+        <div>
+          <span>COMMAND CENTRE</span>
+          <h1>Financial intelligence, made reviewable.</h1>
+          <p>Follow every signal through score, reasoning, action and educational planning.</p>
+        </div>
+        <Link href="/questionnaire" className="button-ghost"><Sparkles size={14} /> Retake</Link>
+      </section>
+
+      <section className="command-hero">
+        <div className="command-copy">
+          <span>YOUR SETUSCORE</span>
+          <h2>{score.score}</h2>
+          <p>{score.risk_bucket} risk · {score.confidence}% confidence</p>
+          <div style={{ marginTop: 16 }}>
+            <ScoreOrbit score={score.score} risk={score.risk_bucket} confidence={score.confidence} />
+          </div>
+        </div>
+        <div className="command-visual">
+          <div className="command-orbit one" />
+          <div className="command-orbit two" />
+          <div className="score-core">
+            <span>SETUSCORE</span>
+            <strong>{score.score}</strong>
+            <small>{score.risk_bucket.toUpperCase()} RISK · {score.confidence}%</small>
+            <i />
+          </div>
+        </div>
+      </section>
+
+      <section className="kpi-grid">
+        <div className="kpi-card">
+          <TrendingUp size={18} />
+          <span>SCORE</span>
+          <strong>{score.score}</strong>
+          <small>300–900 range</small>
+        </div>
+        <div className="kpi-card">
+          <Wallet size={18} />
+          <span>PLAN</span>
+          <strong>{recommendation?.plan || "—"}</strong>
+          <small>Educational allocation</small>
+        </div>
+        <div className="kpi-card highlight">
+          <Trophy size={18} />
+          <span>SAVINGS RATE</span>
+          <strong>{answers.savings_percent}%</strong>
+          <small>of monthly income</small>
+        </div>
+        <div className="kpi-card">
+          <CheckCircle2 size={18} />
+          <span>CONFIDENCE</span>
+          <strong>{score.confidence}%</strong>
+          <small>Model certainty</small>
+        </div>
+      </section>
+
+      {visibleFeatures.length > 0 && (
+        <section className="product-card" style={{ marginTop: 13 }}>
+          <div className="card-heading">
+            <div>
+              <span>SCORE DRIVERS</span>
+              <h3>What shaped your SetuScore</h3>
+              <p>The top factors influencing your result, based on your questionnaire answers.</p>
+            </div>
+            <TrendingUp size={19} />
+          </div>
+          <div className="signal-grid">
+            {visibleFeatures.slice(0, 6).map(([key, value]) => (
+              <div key={key} className="signal-card">
+                <div>
+                  <span>{signalLabels[key] || key}</span>
+                  <strong>{typeof value === "number" ? (value < 1 && value > 0 ? `${Math.round(value * 100)}%` : Math.round(value).toLocaleString("en-IN")) : value}</strong>
+                </div>
+                <div className="signal-bar"><div style={{ width: `${Math.min(100, (value as number) / 5)}%` }} /></div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {score.top_drivers.length > 0 && (
+        <section className="product-card" style={{ marginTop: 13 }}>
+          <div className="card-heading">
+            <div>
+              <span>EXPLAINABILITY</span>
+              <h3>Top drivers</h3>
+              <p>The three features that most influenced your score.</p>
+            </div>
+            <TrendingUp size={19} />
+          </div>
+          <div style={{ display: "grid", gap: 9, marginTop: 20 }}>
+            {score.top_drivers.map(d => (
+              <div key={d.feature} className="driver-item" style={{ display: "grid", gridTemplateColumns: "1fr 80px 50px", alignItems: "center", padding: "12px 0", borderBottom: "1px solid var(--line)" }}>
+                <div>
+                  <strong style={{ fontSize: 11 }}>{d.label}</strong>
+                  <span style={{ display: "block", color: "var(--muted)", fontSize: 8, marginTop: 3 }}>{d.explanation}</span>
+                </div>
+                <span style={{ fontSize: 8, color: "var(--muted)", textAlign: "right" }}>{d.group}</span>
+                <span style={{ fontSize: 9, fontWeight: 800, color: d.direction === "positive" ? "var(--mint)" : "var(--orange)", textAlign: "right" }}>{d.direction === "positive" ? "+" : ""}{d.impact_points} pts</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {score.improvement_actions.length > 0 && (
+        <section className="product-card" style={{ marginTop: 13 }}>
+          <div className="card-heading">
+            <div>
+              <span>IMPROVEMENT MISSIONS</span>
+              <h3>Actions to raise your score</h3>
+              <p>Each mission shows the estimated score gain from a small change.</p>
+            </div>
+            <Trophy size={19} />
+          </div>
+          <div style={{ display: "grid", gap: 9, marginTop: 20 }}>
+            {score.improvement_actions.map(a => (
+              <div key={a.feature} style={{ display: "grid", gridTemplateColumns: "1fr 50px", gap: 12, alignItems: "start", padding: "14px 0", borderBottom: "1px solid var(--line)" }}>
+                <div>
+                  <strong style={{ fontSize: 11 }}>{a.label}</strong>
+                  <p style={{ margin: "4px 0 0", color: "var(--muted)", fontSize: 8, lineHeight: 1.6 }}>{a.action}</p>
+                </div>
+                <span style={{ fontSize: 9, fontWeight: 800, color: "var(--mint)", textAlign: "right" }}>+{a.score_gain} pts</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {simulation && (
+        <section className="product-grid wide-left" style={{ marginTop: 13 }}>
+          <article className="product-card">
+            <div className="card-heading">
+              <div>
+                <span>SCENARIOS</span>
+                <h3>1–5 year projection</h3>
+                <p>Educational scenarios based on your monthly investment capacity.</p>
+              </div>
+            </div>
+            <div style={{ marginTop: 24 }}>
+              <ProjectionChart series={simulation.series} />
+            </div>
+            <div className="final-value-list" style={{ marginTop: 20 }}>
+              <div className="blue"><span>CONTRIBUTED</span><strong>{money(simulation.final_values.contributed || 0)}</strong></div>
+              <div><span>CONSERVATIVE</span><strong>{money(simulation.final_values.conservative || 0)}</strong></div>
+              <div className="mint"><span>EXPECTED</span><strong>{money(simulation.final_values.expected || 0)}</strong></div>
+              <div className="orange"><span>OPTIMISTIC</span><strong>{money(simulation.final_values.optimistic || 0)}</strong></div>
+            </div>
+          </article>
+          {recommendation && (
+            <article className="product-card">
+              <div className="card-heading">
+                <div>
+                  <span>INVESTMENT PLAN</span>
+                  <h3>{recommendation.plan}</h3>
+                  <p>Educational allocation for {money(recommendation.monthly_amount)}/month over {recommendation.years} year{recommendation.years > 1 ? "s" : ""}.</p>
+                </div>
+                <Wallet size={19} />
+              </div>
+              <div className="allocation-view" style={{ marginTop: 20 }}>
+                {recommendation.allocation.map(a => (
+                  <div key={a.category} className="allocation-item">
+                    <strong>{a.percentage}% {a.category}</strong>
+                    <small>{a.rationale}</small>
+                  </div>
+                ))}
+              </div>
+              {recommendation.guardrails.length > 0 && (
+                <div style={{ marginTop: 20, padding: "14px 16px", border: "1px solid rgba(89,215,180,.14)", borderRadius: 12, background: "rgba(89,215,180,.035)" }}>
+                  {recommendation.guardrails.map((g, i) => <p key={i} style={{ margin: "0 0 6px", color: "var(--muted)", fontSize: 8, lineHeight: 1.6 }}>{g}</p>)}
+                </div>
+              )}
+              <div style={{ marginTop: 20, padding: "14px 16px", border: "1px solid rgba(255,117,66,.14)", borderRadius: 12, background: "rgba(255,117,66,.04)", display: "flex", alignItems: "start", gap: 8, color: "var(--orange-2)", fontSize: 8 }}>
+                <AlertTriangle size={13} style={{ flex: "0 0 auto", marginTop: 1 }} />
+                <p style={{ margin: 0, lineHeight: 1.6 }}>{recommendation.disclaimer}</p>
+              </div>
+            </article>
+          )}
+        </section>
+      )}
+    </main>
+  );
+}
