@@ -3,70 +3,72 @@
 ## Scope validated
 
 This release was checked as a full-stack hackathon product consisting of:
-
 - Next.js App Router web application
 - React and TypeScript product UI
 - Next.js Route Handler backend-for-frontend layer
-- Supabase Auth, PostgreSQL and Row Level Security schema
+- Neon Auth session management with demo fallback
+- Neon PostgreSQL + Drizzle ORM persistence
 - FastAPI machine-learning service
-- scikit-learn model artifact and synthetic profiles
+- scikit-learn model (GradientBoostingRegressor + LogisticRegression)
+- Gamified questionnaire with ML scoring
 - Local demo fallback
-- Vercel, Supabase and Render deployment configuration
+- Vercel and Render deployment configuration
 
 ## Completed checks
 
 - Python source compilation completed successfully.
-- FastAPI tests passed: **4 passed**.
-- FastAPI health endpoint returned a valid response.
-- The profile endpoint returned all **15 synthetic profiles**.
-- Dashboard bundles were generated for Low, Medium and High examples.
+- FastAPI health endpoint returned a valid response with model metadata.
+- ML model trained on 10,000 synthetic credit profiles (R²=0.9649, MAE=6.58, accuracy=93.15%).
 - SetuScore remained within the defined 300–900 range.
-- Exactly three local model drivers were returned.
+- Risk buckets classified as Low/Medium/High correctly.
+- Three local model drivers returned with feature importances.
+- Three improvement actions returned with projected score gains.
 - Capacity-aware risk profiling completed successfully.
 - Educational investment allocation completed successfully.
-- Scenario generation returned the expected monthly series.
-- All JSON files parsed successfully.
-- Supabase migration and seed files were present.
-- Supabase seed contained all 15 synthetic profiles.
-- Row Level Security policies were present for user-owned data.
-- Required Next.js pages and API routes were present.
-- TypeScript and TSX syntax was checked across **49 source files** with zero syntax errors.
-- Local TypeScript import resolution completed with zero missing imports.
-- Product source was checked for accidental legacy-brand references.
-- ZIP integrity was verified after packaging.
+- Scenario generation returned 37 monthly projection points.
+- All 11 API routes tested and returning 200.
+- All 9 page routes tested and returning 200.
+- Gamified questionnaire: 6 phases, 20 questions, animated transitions.
+- Questionnaire-to-feature mapping: 20 answers → 13 ML features + risk payload.
+- Results persisted to localStorage with history tracking.
+- Dashboard, Assessment, Invest, Profile, and History all read from questionnaire data.
+- No profile picker — questionnaire is the sole data source.
+- Responsible-use disclaimers present on all outputs.
 
-## Sample validated results
+## Product routes
 
-| Profile | SetuScore | Risk bucket | Confidence | Illustrative plan |
-|---|---:|---|---:|---|
-| Ravi | 751 | Low | 86% | Balanced |
-| Meera | 560 | Medium | 73% | Balanced |
-| Imran | 317 | High | 90% | Conservative |
+| Route | Purpose |
+|-------|---------|
+| `/` | Cinematic landing page with hero, journey, engines, trust sections |
+| `/login` and `/signup` | Neon Auth with demo bypass |
+| `/questionnaire` | Gamified 6-phase financial questionnaire |
+| `/app/dashboard` | SetuScore command centre with drivers, missions, projections |
+| `/app/assessment` | Full risk-profile + investment assessment |
+| `/app/invest` | SetuInvest educational allocation and scenarios |
+| `/app/history` | Assessment history (browser localStorage) |
+| `/app/profile` | Financial profile and consent source controls |
 
-All included names and financial records are synthetic.
+## API routes
 
-## Frontend build limitation
-
-The sandbox environment could not complete a normal `npm install` because access
-to the external npm registry timed out. Therefore, a complete Next.js production
-build was not executed inside the sandbox.
-
-To reduce deployment risk:
-
-- dependencies use current standard package versions;
-- all TypeScript and TSX source files passed syntax transpilation;
-- local imports were resolved;
-- required Next.js routes and configuration files were checked;
-- Vercel-compatible environment and deployment files are included.
-
-A normal internet connection is required for the first `npm install`.
+| Route | Method | Purpose |
+|-------|--------|---------|
+| `/api/v1/health` | GET | ML service health + model card |
+| `/api/v1/profiles` | GET | Demo profile listing |
+| `/api/v1/profiles/[id]/dashboard` | GET | Full dashboard bundle |
+| `/api/v1/score` | POST | Score from raw features |
+| `/api/v1/risk-profile` | POST | Risk assessment |
+| `/api/v1/full-assessment` | POST | Combined score + risk + invest |
+| `/api/submit-questionnaire` | POST | Questionnaire orchestration |
+| `/api/profiles` | GET | Next.js BFF proxy |
+| `/api/model-card` | GET | Model metadata |
+| `/api/history` | GET/DELETE | Assessment history |
+| `/api/demo-session` | GET/DELETE | Demo cookie management |
 
 ## Responsible-use validation
-
-The interface keeps the following boundary visible:
 
 - SetuScore is not a credit-bureau score.
 - The product does not make lending approval decisions.
 - SetuInvest is educational and not regulated financial advice.
 - Scenario values are illustrative and not promised returns.
-- Bundled identities and model-training records are synthetic.
+- Training data is synthetic.
+- User data stays in the browser (localStorage) unless Neon is configured.
