@@ -1,6 +1,7 @@
 node_modules/
 .next/
 out/
+.env*
 .env
 .env.local
 .env.*.local
@@ -12,3 +13,4 @@ ml-service/__pycache__/
 .pytest_cache/
 .DS_Store
 .vercel/
+.node_modules/*
