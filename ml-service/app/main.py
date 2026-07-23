@@ -6,7 +6,7 @@ from app.services.investment_service import recommend, simulate
 from app.services.model_service import model_card, score_features
 from app.services.profile_service import get_profile, list_profiles
 from app.services.risk_service import assess_risk
-app=FastAPI(title=APP_NAME,version="2.0.0",description="Explainable synthetic alternative-data scoring and educational planning engine.",docs_url="/api/docs",openapi_url="/api/openapi.json")
+app=FastAPI(title=APP_NAME,version="3.0.0",description="Credit scoring engine trained on 10,000 synthetic credit profiles with explainable AI.",docs_url="/api/docs",openapi_url="/api/openapi.json")
 app.add_middleware(CORSMiddleware,allow_origins=allowed_origins(),allow_credentials=False,allow_methods=["*"],allow_headers=["*"])
 def verify(x_api_key:str|None=Header(default=None)):
  expected=api_key()

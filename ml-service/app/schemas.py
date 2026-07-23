@@ -3,23 +3,23 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, model_validator
 
-RiskBucket = Literal["Low", "Medium", "High"]
+RiskBucket = Literal["Poor", "Fair", "Good"]
 InvestmentPlan = Literal["Conservative", "Balanced", "Growth"]
 
 class SignalFeatures(BaseModel):
-    recharge_regularity: float = Field(ge=0, le=1)
-    recharge_amount_volatility: float = Field(ge=0, le=1)
-    utility_on_time_ratio: float = Field(ge=0, le=1)
-    utility_avg_days_late: float = Field(ge=0, le=30)
-    commerce_frequency: float = Field(ge=0, le=40)
-    commerce_refund_ratio: float = Field(ge=0, le=0.5)
-    transaction_stability: float = Field(ge=0, le=1)
-    cashflow_volatility: float = Field(ge=0, le=1)
-    savings_rate: float = Field(ge=0, le=0.6)
-    savings_streak_months: float = Field(ge=0, le=48)
-    digital_tenure_months: float = Field(ge=1, le=96)
-    failed_payment_ratio: float = Field(ge=0, le=0.5)
-    consent_completeness: float = Field(ge=0.5, le=1)
+    payment_consistency: float = Field(ge=0, le=100)
+    savings_ratio: float = Field(ge=0, le=1)
+    expense_ratio: float = Field(ge=0, le=1.5)
+    late_bill_count: float = Field(ge=0, le=10)
+    recharge_frequency: float = Field(ge=0, le=15)
+    upi_transactions: float = Field(ge=0, le=600)
+    wallet_transactions: float = Field(ge=0, le=120)
+    ecommerce_orders: float = Field(ge=0, le=30)
+    digital_activity_score: float = Field(ge=0, le=800)
+    financial_discipline: float = Field(ge=0, le=100)
+    monthly_income: float = Field(ge=0, le=200000)
+    age: float = Field(ge=10, le=80)
+    average_recharge_amount: float = Field(ge=0, le=1000)
 
 class ProfileSummary(BaseModel):
     profile_id: str

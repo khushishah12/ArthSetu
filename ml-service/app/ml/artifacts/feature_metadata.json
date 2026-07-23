@@ -1,106 +1,106 @@
 {
-  "recharge_regularity": {
-    "label": "Recharge regularity",
-    "group": "Recharge",
+  "payment_consistency": {
+    "label": "Payment consistency",
+    "group": "Payments",
     "direction": "higher",
-    "good": 0.88,
-    "step": 0.08,
-    "action": "Keep mobile recharges regular for the next three months."
+    "good": 96.0,
+    "step": 3.0,
+    "action": "Pay all utility bills before the due date for three consecutive months."
   },
-  "recharge_amount_volatility": {
-    "label": "Recharge amount stability",
-    "group": "Recharge",
-    "direction": "lower",
-    "good": 0.2,
-    "step": 0.08,
-    "action": "Use a more consistent recharge amount where practical."
-  },
-  "utility_on_time_ratio": {
-    "label": "Utility payment punctuality",
-    "group": "Utilities",
-    "direction": "higher",
-    "good": 0.92,
-    "step": 0.08,
-    "action": "Pay utility bills before the due date for three consecutive months."
-  },
-  "utility_avg_days_late": {
-    "label": "Average utility delay",
-    "group": "Utilities",
-    "direction": "lower",
-    "good": 1.5,
-    "step": 2.0,
-    "action": "Use reminders or autopay to reduce the average payment delay."
-  },
-  "commerce_frequency": {
-    "label": "Digital commerce activity",
-    "group": "Commerce",
-    "direction": "higher",
-    "good": 12.0,
-    "step": 2.0,
-    "action": "Maintain a stable pattern of legitimate digital transactions."
-  },
-  "commerce_refund_ratio": {
-    "label": "Refund ratio",
-    "group": "Commerce",
-    "direction": "lower",
-    "good": 0.05,
-    "step": 0.03,
-    "action": "Avoid unnecessary cancellations and maintain predictable commerce activity."
-  },
-  "transaction_stability": {
-    "label": "Transaction stability",
-    "group": "Transactions",
-    "direction": "higher",
-    "good": 0.82,
-    "step": 0.08,
-    "action": "Keep transaction activity steady instead of highly irregular."
-  },
-  "cashflow_volatility": {
-    "label": "Cash-flow volatility",
-    "group": "Transactions",
-    "direction": "lower",
-    "good": 0.25,
-    "step": 0.08,
-    "action": "Reserve recurring expenses early to reduce month-to-month cash-flow swings."
-  },
-  "savings_rate": {
-    "label": "Savings rate",
+  "savings_ratio": {
+    "label": "Savings ratio",
     "group": "Savings",
     "direction": "higher",
-    "good": 0.18,
+    "good": 0.3,
     "step": 0.04,
-    "action": "Maintain a small automatic monthly savings transfer."
+    "action": "Set up an automatic transfer of at least 20% of income to savings each month."
   },
-  "savings_streak_months": {
-    "label": "Savings continuity",
-    "group": "Savings",
-    "direction": "higher",
-    "good": 12.0,
-    "step": 3.0,
-    "action": "Continue the savings habit for at least three more months."
+  "expense_ratio": {
+    "label": "Expense ratio",
+    "group": "Spending",
+    "direction": "lower",
+    "good": 0.65,
+    "step": 0.04,
+    "action": "Track and reduce discretionary spending to keep expenses below 70% of income."
   },
-  "digital_tenure_months": {
-    "label": "Digital history length",
-    "group": "Stability",
-    "direction": "higher",
-    "good": 30.0,
-    "step": 3.0,
-    "action": "Continue using the same verified financial channels consistently."
-  },
-  "failed_payment_ratio": {
-    "label": "Failed payment ratio",
+  "late_bill_count": {
+    "label": "Late bill count",
     "group": "Payments",
     "direction": "lower",
-    "good": 0.03,
-    "step": 0.03,
-    "action": "Keep enough balance before scheduled payments to avoid failures."
+    "good": 0.0,
+    "step": 1.0,
+    "action": "Use calendar reminders or autopay to avoid missing bill due dates."
   },
-  "consent_completeness": {
-    "label": "Consent completeness",
-    "group": "Consent",
+  "recharge_frequency": {
+    "label": "Recharge frequency",
+    "group": "Recharge",
     "direction": "higher",
-    "good": 0.95,
-    "step": 0.05,
-    "action": "Review and complete the eligible consented signal sources."
+    "good": 12.0,
+    "step": 1.0,
+    "action": "Keep mobile recharges regular and on-time every month."
+  },
+  "upi_transactions": {
+    "label": "UPI transactions",
+    "group": "Transactions",
+    "direction": "higher",
+    "good": 250.0,
+    "step": 30.0,
+    "action": "Use UPI for regular small transactions to build a consistent digital trail."
+  },
+  "wallet_transactions": {
+    "label": "Wallet transactions",
+    "group": "Transactions",
+    "direction": "higher",
+    "good": 30.0,
+    "step": 10.0,
+    "action": "Maintain steady wallet usage for everyday purchases."
+  },
+  "ecommerce_orders": {
+    "label": "E-commerce orders",
+    "group": "Commerce",
+    "direction": "higher",
+    "good": 12.0,
+    "step": 3.0,
+    "action": "Continue using verified e-commerce platforms for legitimate purchases."
+  },
+  "digital_activity_score": {
+    "label": "Digital activity score",
+    "group": "Digital",
+    "direction": "higher",
+    "good": 300.0,
+    "step": 30.0,
+    "action": "Stay active across digital financial channels consistently."
+  },
+  "financial_discipline": {
+    "label": "Financial discipline",
+    "group": "Discipline",
+    "direction": "higher",
+    "good": 80.0,
+    "step": 5.0,
+    "action": "Combine regular payments, savings, and recharges to improve overall discipline score."
+  },
+  "monthly_income": {
+    "label": "Monthly income",
+    "group": "Income",
+    "direction": "higher",
+    "good": 60000.0,
+    "step": 5000.0,
+    "action": "Explore additional income sources or skill development to increase earnings."
+  },
+  "age": {
+    "label": "Age",
+    "group": "Demographics",
+    "direction": "higher",
+    "good": 35.0,
+    "step": 2.0,
+    "action": "Age is not directly changeable, but longer financial history improves scoring over time."
+  },
+  "average_recharge_amount": {
+    "label": "Average recharge amount",
+    "group": "Recharge",
+    "direction": "higher",
+    "good": 499.0,
+    "step": 100.0,
+    "action": "Use a consistent recharge amount each month to show financial predictability."
   }
 }

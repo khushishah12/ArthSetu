@@ -13,3 +13,26 @@ export interface RiskProfilePayload { profile_id?:string; loss_reaction:1|2|3; h
 export interface RiskProfileResult { appetite_score:number; capacity_score:number; profile:InvestmentPlan; guardrails:string[]; explanation:string[]; disclaimer:string; }
 export interface FullAssessment { profile:ProfileSummary; score:ScoreResult; risk_profile:RiskProfileResult; recommendation:Recommendation; simulation:Simulation; disclaimer:string; }
 export interface HistoryItem { id:string; kind:string; profile_id:string|null; summary:Record<string,unknown>; created_at:string; }
+
+export interface QuestionnaireAnswers {
+  age: number;
+  occupation: "student" | "salaried" | "freelancer" | "business" | "gig";
+  city_tier: "metro" | "tier2" | "tier3" | "rural";
+  monthly_income: number;
+  income_source: "salary" | "freelance" | "business" | "mixed";
+  monthly_expenses: number;
+  expense_category: "rent" | "family" | "personal" | "mixed";
+  savings_percent: number;
+  has_emergency_fund: boolean;
+  late_bills_12m: number;
+  bill_payment_method: "autopay" | "manual" | "mixed";
+  monthly_recharge: number;
+  recharge_amount: number;
+  upi_monthly_count: number;
+  wallet_monthly_count: number;
+  ecommerce_monthly_count: number;
+  loss_reaction: 1 | 2 | 3;
+  investment_horizon: 1 | 2 | 3 | 5;
+  investment_experience: 0 | 1 | 2;
+  monthly_invest_amount: number;
+}

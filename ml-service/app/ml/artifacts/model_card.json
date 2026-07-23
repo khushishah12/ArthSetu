@@ -1,32 +1,70 @@
 {
-  "version": "simple-logistic-v1",
-  "model_type": "StandardScaler + LogisticRegression",
+  "version": "credit-dataset-v1",
+  "model_type": "StandardScaler + GradientBoostingRegressor",
+  "target": "credit_score (300-900)",
   "features": [
-    "recharge_regularity",
-    "recharge_amount_volatility",
-    "utility_on_time_ratio",
-    "utility_avg_days_late",
-    "commerce_frequency",
-    "commerce_refund_ratio",
-    "transaction_stability",
-    "cashflow_volatility",
-    "savings_rate",
-    "savings_streak_months",
-    "digital_tenure_months",
-    "failed_payment_ratio",
-    "consent_completeness"
+    "payment_consistency",
+    "savings_ratio",
+    "expense_ratio",
+    "late_bill_count",
+    "recharge_frequency",
+    "upi_transactions",
+    "wallet_transactions",
+    "ecommerce_orders",
+    "digital_activity_score",
+    "financial_discipline",
+    "monthly_income",
+    "age",
+    "average_recharge_amount"
   ],
-  "temperature": 2.2,
-  "score_formula": "round(300 + 600 * probability^1.35)",
+  "feature_importances": {
+    "financial_discipline": 0.5978,
+    "late_bill_count": 0.2418,
+    "savings_ratio": 0.0834,
+    "digital_activity_score": 0.0324,
+    "payment_consistency": 0.0129,
+    "upi_transactions": 0.0107,
+    "expense_ratio": 0.0075,
+    "ecommerce_orders": 0.0058,
+    "monthly_income": 0.0029,
+    "wallet_transactions": 0.0025,
+    "age": 0.0011,
+    "recharge_frequency": 0.0007,
+    "average_recharge_amount": 0.0004
+  },
+  "baselines": {
+    "payment_consistency": 91.0358,
+    "savings_ratio": 0.2111,
+    "expense_ratio": 0.7269,
+    "late_bill_count": 1.2138,
+    "recharge_frequency": 10.3699,
+    "upi_transactions": 226.0731,
+    "wallet_transactions": 41.5774,
+    "ecommerce_orders": 9.0727,
+    "digital_activity_score": 276.7233,
+    "financial_discipline": 72.5921,
+    "monthly_income": 45952.5159,
+    "age": 31.9946,
+    "average_recharge_amount": 378.41
+  },
   "risk_thresholds": {
-    "Low": 700,
-    "Medium": 520
+    "Excellent": 750,
+    "Good": 650,
+    "Fair": 550
   },
   "metrics": {
-    "auc_roc": 0.8053,
-    "brier_score": 0.1933,
-    "training_rows": 6000,
-    "positive_rate": 0.52
+    "regression": {
+      "mae": 6.58,
+      "r2": 0.9649
+    },
+    "classification": {
+      "accuracy": 0.9315
+    }
   },
-  "note": "Trained only on synthetic data for an educational hackathon prototype."
+  "training_data": {
+    "source": "arthsetudataset/credit_dataset.csv",
+    "rows": 10000,
+    "note": "Synthetic dataset generated for educational prototype. Not real credit data."
+  },
+  "disclaimer": "Educational prototype only. SetuScore is not an official credit bureau score. Outputs are for learning purposes and do not constitute regulated financial advice."
 }

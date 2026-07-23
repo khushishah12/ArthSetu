@@ -12,6 +12,7 @@ export function getDb() {
 
   const sql = neon(databaseUrl);
 
+  // @ts-expect-error drizzle-orm/neon-http types mismatch with @neondatabase/serverless v4
   return drizzle(sql, {
     schema,
   });
