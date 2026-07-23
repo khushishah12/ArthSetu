@@ -60,7 +60,7 @@ export function DashboardClient() {
   if (!hasData || !score || !answers) return <NoDataState />;
 
   const profile = getUserProfile(answers);
-  const features = score.top_drivers.length > 0
+  const features = score.top_drivers?.length > 0
     ? Object.fromEntries(score.top_drivers.map(d => [d.feature, d.value]))
     : {};
   const visibleFeatures = Object.entries(features).filter(([k]) => k in signalLabels);
@@ -148,7 +148,7 @@ export function DashboardClient() {
         </section>
       )}
 
-      {score.top_drivers.length > 0 && (
+      {score.top_drivers?.length > 0 && (
         <section className="product-card" style={{ marginTop: 13 }}>
           <div className="card-heading">
             <div>
@@ -159,7 +159,7 @@ export function DashboardClient() {
             <TrendingUp size={19} />
           </div>
           <div style={{ display: "grid", gap: 9, marginTop: 20 }}>
-            {score.top_drivers.map(d => (
+            {score.top_drivers?.map(d => (
               <div key={d.feature} className="driver-item" style={{ display: "grid", gridTemplateColumns: "1fr 80px 50px", alignItems: "center", padding: "12px 0", borderBottom: "1px solid var(--line)" }}>
                 <div>
                   <strong style={{ fontSize: 11 }}>{d.label}</strong>
@@ -173,7 +173,7 @@ export function DashboardClient() {
         </section>
       )}
 
-      {score.improvement_actions.length > 0 && (
+      {score.improvement_actions?.length > 0 && (
         <section className="product-card" style={{ marginTop: 13 }}>
           <div className="card-heading">
             <div>
@@ -184,7 +184,7 @@ export function DashboardClient() {
             <Trophy size={19} />
           </div>
           <div style={{ display: "grid", gap: 9, marginTop: 20 }}>
-            {score.improvement_actions.map(a => (
+            {score.improvement_actions?.map(a => (
               <div key={a.feature} style={{ display: "grid", gridTemplateColumns: "1fr 50px", gap: 12, alignItems: "start", padding: "14px 0", borderBottom: "1px solid var(--line)" }}>
                 <div>
                   <strong style={{ fontSize: 11 }}>{a.label}</strong>
